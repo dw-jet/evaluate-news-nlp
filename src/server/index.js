@@ -1,9 +1,10 @@
-var path = require('path')
+const path = require('path')
 const express = require('express')
-const mockAPIResponse = require('./mockAPI.js')
 const aylien = require('aylien_textapi')
 const dotenv = require('dotenv')
 const app = express()
+
+let sentimentData = {};
 
 dotenv.config()
 
@@ -26,6 +27,18 @@ app.listen(8080, function () {
     console.log('Example app listening on port 8080!')
 })
 
-app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
+app.get('/sentiment', function (req, res) {
+    res.send(sentimentData)
+})
+
+app.post('/sentiment', (req, res) => {
+  if (!req.body) { return; }
+  const url = req.body;
+  sentitmentData = textapi.sentiment({
+    'url': url
+  }, function(error, response) {
+    if (error === null) {
+      console.log(response);
+    }
+  });
 })
