@@ -1,5 +1,11 @@
 header {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 40px;
+  height: 6em;
+  background-color: #fffacd;
+}
+
+.page-heading {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

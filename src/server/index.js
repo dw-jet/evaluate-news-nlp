@@ -8,12 +8,14 @@ const bodyParser = require('body-parser')
 
 app.use(cors())
 
-let sentimentData = {};
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(express.static('dist'))
+
 dotenv.config()
+
+let sentimentData = {};
 
 const textapi = new aylien({
   application_id: process.env.API_ID,
@@ -33,10 +35,6 @@ const sentimentAnalysis = (url) => {
     }
   })
 }
-
-app.use(express.static('dist'))
-
-console.log(__dirname)
 
 app.get('/', function (req, res) {
     // res.sendFile('dist/index.html')
