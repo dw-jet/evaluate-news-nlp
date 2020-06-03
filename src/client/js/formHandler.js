@@ -1,16 +1,11 @@
 function handleSubmit(event) {
-    event.preventDefault()
+  event.preventDefault()
+  const resultDiv = document.getElementById('result');
+  // check what text was put into the form field
+  let formText = document.getElementById('name').value
 
-    // check what text was put into the form field
-    let formText = document.getElementById('name').value
-    Client.checkForName(formText)
-
-    console.log("::: Form Submitted :::")
-    fetch('http://localhost:8080/test')
-    .then(res => res.json())
-    .then(function(res) {
-        document.getElementById('results').innerHTML = res.message
-    })
+  Client.postData('http://localhost:3030/sentiment', { url: formText})
+  .then(Client.getHandler('http://localhost:3030/sentiment'))
 }
 
 export { handleSubmit }

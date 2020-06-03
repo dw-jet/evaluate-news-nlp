@@ -3,8 +3,15 @@ const express = require('express')
 const aylien = require('aylien_textapi')
 const dotenv = require('dotenv')
 const app = express()
+const cors = require('cors')
+const bodyParser = require('body-parser')
+
+app.use(cors())
 
 let sentimentData = {};
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 dotenv.config()
 
@@ -12,6 +19,20 @@ const textapi = new aylien({
   application_id: process.env.API_ID,
   application_key: process.env.API_KEY
 })
+
+const sentimentAnalysis = (url) => {
+  textapi.sentiment({
+    url: url,
+    mode: "document"
+  }, function(error, response) {
+    if (error === null) {
+      sentimentData = response;
+    }
+    else {
+      console.log(error)
+    }
+  })
+}
 
 app.use(express.static('dist'))
 
@@ -23,22 +44,16 @@ app.get('/', function (req, res) {
 })
 
 // designates what port the app will listen to for incoming requests
-app.listen(8080, function () {
-    console.log('Example app listening on port 8080!')
+app.listen(3030, function () {
+    console.log('Example app listening on port 3030!')
 })
 
 app.get('/sentiment', function (req, res) {
-    res.send(sentimentData)
+  console.log(sentimentData)
+  res.send(sentimentData)
 })
 
-app.post('/sentiment', (req, res) => {
-  if (!req.body) { return; }
-  const url = req.body;
-  sentitmentData = textapi.sentiment({
-    'url': url
-  }, function(error, response) {
-    if (error === null) {
-      console.log(response);
-    }
-  });
+app.post('/sentiment', function (req, res) {
+  console.log(req.body.url)
+  sentimentAnalysis(req.body.url);
 })
