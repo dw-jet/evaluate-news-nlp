@@ -9,12 +9,13 @@ input {
     width: 100%;
     line-height: 16px;
     margin: 10px 0;
+
+    &:invalid:required {
+      background-color: rgba(248, 131, 121, 0.25);
+      border: 2px solid #ff7f7f;
+    }
 }
 
-.failed-validation {
-  border-color: red;
-}
-
-.failed-validation-text {
+.invalid-text {
   color: red;
 }
