@@ -1,4 +1,7 @@
-const postData = async (url='', data={}) => {
+const regeneratorRuntime = require('regenerator-runtime');
+
+const postData = async (url, data={}) => {
+  if (!url) { throw 'URL is missing'; }
   const response = await fetch(url, {
     method: 'POST',
     credentials: 'same-origin',
