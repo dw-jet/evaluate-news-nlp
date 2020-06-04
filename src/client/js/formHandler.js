@@ -12,8 +12,8 @@ function handleSubmit(event) {
   resultDiv.innerHTML = "";
 
   if (inputValid) {
-    Client.postData('http://localhost:3030/sentiment', { url: formText})
-    .then(Client.getHandler('http://localhost:3030/sentiment'))
+    const promise = Client.postData('http://localhost:3030/sentiment', { url: formText})
+    promise.then(Client.getHandler('http://localhost:3030/sentiment'))
   } else {
     const resultDiv = document.getElementById('results');
     resultDiv.classList.add('invalid-text');
