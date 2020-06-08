@@ -15,7 +15,15 @@ npm install
 API_ID=xxxxxxxx
 API_KEY=xxxxxxxxxxxxxxxxxx
 ```
-5. Run npm start and navigate to http://localhost:3030 and enter the URL of an article in the box.
+5. Build everything
+```bash
+npm run build-prod
+```
+6. Run and navigate to http://localhost:3030 and enter the URL of an article in the box.
+```bash
+npm start 
+``` 
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
